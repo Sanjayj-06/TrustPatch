@@ -1,0 +1,209 @@
+/* 
+ * index.css
+ * ---------
+ * TrustPatch Design System — Global styles using Tailwind + custom CSS.
+ * 
+ * Design theme: Deep dark glassmorphism with teal (trust) and indigo (baseline) accents.
+ * Inspiration: Futuristic research dashboard, cyberpunk meets academic precision.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Base Reset & Typography
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 font-sans;
+    background: 
+      radial-gradient(ellipse at 20% 0%, rgba(20, 184, 166, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 100%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+      #020817;
+    min-height: 100vh;
+  }
+
+  * {
+    @apply border-slate-700;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-slate-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
+  }
+}
+
+/* ============================================================
+   Glass Morphism Components
+   ============================================================ */
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    @apply bg-white/8 border-white/20;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(20, 184, 166, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+  }
+
+  /* Trust (TAPR) themed components — teal */
+  .trust-card {
+    @apply backdrop-blur-xl border rounded-2xl;
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), rgba(15, 118, 110, 0.05));
+    border-color: rgba(20, 184, 166, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(20, 184, 166, 0.08), inset 0 1px 0 rgba(20, 184, 166, 0.1);
+  }
+
+  /* Baseline (BAPR) themed components — indigo */
+  .baseline-card {
+    @apply backdrop-blur-xl border rounded-2xl;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(79, 70, 229, 0.05));
+    border-color: rgba(99, 102, 241, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(99, 102, 241, 0.08), inset 0 1px 0 rgba(99, 102, 241, 0.1);
+  }
+
+  /* Glow button — teal */
+  .btn-trust {
+    @apply px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+    box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+  }
+
+  .btn-trust:hover {
+    box-shadow: 0 6px 25px rgba(20, 184, 166, 0.5);
+    transform: translateY(-1px);
+  }
+
+  .btn-trust:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* Score badge */
+  .score-badge {
+    @apply inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold;
+  }
+
+  .score-badge-low {
+    @apply score-badge bg-emerald-500/20 text-emerald-400 border border-emerald-500/30;
+  }
+
+  .score-badge-medium {
+    @apply score-badge bg-amber-500/20 text-amber-400 border border-amber-500/30;
+  }
+
+  .score-badge-high {
+    @apply score-badge bg-red-500/20 text-red-400 border border-red-500/30;
+  }
+
+  /* Code block */
+  .code-block {
+    @apply font-mono text-xs bg-slate-900/80 border border-slate-700 rounded-xl p-4 overflow-x-auto;
+    color: #e2e8f0;
+  }
+
+  /* Step indicator */
+  .step-indicator {
+    @apply flex items-center gap-3 p-3 rounded-xl border transition-all duration-500;
+  }
+
+  .step-indicator-pending {
+    @apply step-indicator bg-slate-800/30 border-slate-700/50 text-slate-500;
+  }
+
+  .step-indicator-running {
+    @apply step-indicator border-teal-500/50 text-teal-400;
+    background: rgba(20, 184, 166, 0.08);
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.15);
+  }
+
+  .step-indicator-done {
+    @apply step-indicator bg-teal-500/10 border-teal-500/30 text-teal-300;
+  }
+
+  .step-indicator-error {
+    @apply step-indicator bg-red-500/10 border-red-500/30 text-red-400;
+  }
+
+  /* Metric cell colors */
+  .metric-high { @apply text-emerald-400 font-semibold; }
+  .metric-mid  { @apply text-amber-400 font-semibold; }
+  .metric-low  { @apply text-red-400 font-semibold; }
+
+  /* Gradient text */
+  .gradient-text-trust {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #14b8a6, #5eead4);
+  }
+
+  .gradient-text-baseline {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #6366f1, #a5b4fc);
+  }
+
+  /* Pipeline flow arrow */
+  .flow-arrow {
+    @apply text-slate-500 text-lg font-bold text-center;
+  }
+
+  /* Animated scanning line for processing state */
+  .scanning-line {
+    @apply absolute w-full h-0.5 left-0;
+    background: linear-gradient(90deg, transparent, rgba(20, 184, 166, 0.8), transparent);
+    animation: scan 2s linear infinite;
+  }
+
+  @keyframes scan {
+    0%   { top: 0%; }
+    100% { top: 100%; }
+  }
+}
+
+/* ============================================================
+   Utility Extensions
+   ============================================================ */
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(20, 184, 166, 0.5);
+  }
+
+  .bg-grid {
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(20, 184, 166, 0.3); }
+    50%       { box-shadow: 0 0 30px rgba(20, 184, 166, 0.7); }
+  }
+}
