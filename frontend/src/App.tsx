@@ -18,10 +18,10 @@ import BAPRFailureAlert from "./components/BAPRFailureAlert";
 import AboutSection from "./components/AboutSection";
 import ArchitectureSection from "./components/ArchitectureSection";
 
-import psgLogo from "./images/psgtech.png";
-import yrsLogo from "./images/75yrs.png";
-import aiConsortiumLogo from "./images/aiconsortium.jpg";
-import tplogo from "./images/TP1.png";
+import psgLogo from "./Images/psgtech.png";
+import yrsLogo from "./Images/75yrs.png";
+import aiConsortiumLogo from "./Images/aiconsortium.jpg";
+import tplogo from "./Images/TP1.png";
 import { uploadFiles, evaluateTrustPatch, checkHealth } from "./api/trustpatch";
 import {
   AppState,

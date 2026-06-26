@@ -8,9 +8,9 @@ import React from "react";
 const Linkedin = (props: any) => null;
 const Mail = (props: any) => null;
 
-import authorImg from "../images/author.png";
-import advisorImg from "../images/advisor.jpg";
-import tpLogo from "../images/TP1.png";
+import authorImg from "../Images/author.png";
+import advisorImg from "../Images/advisor.jpg";
+import tpLogo from "../Images/TP1.png";
 
 export default function AboutSection() {
   return (
