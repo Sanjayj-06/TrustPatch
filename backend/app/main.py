@@ -16,10 +16,12 @@ Running:
   Docker: handled by Dockerfile CMD
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
 
-from app.database import engine, Base
+from app.database import engine, Base, get_db
+from app.models import VisitorCount
 from app.routers import upload, baseline, trustpatch, history
 
 # ---------------------------------------------------------------------------
@@ -62,6 +64,25 @@ app.include_router(upload.router)      # POST /upload
 app.include_router(baseline.router)    # POST /baseline/run
 app.include_router(trustpatch.router)  # POST /trustpatch/evaluate
 app.include_router(history.router)     # GET  /history
+
+# ---------------------------------------------------------------------------
+# Visitor Counter Endpoint
+# ---------------------------------------------------------------------------
+@app.get("/visitors", tags=["visitors"])
+async def get_visitors(db: Session = Depends(get_db)):
+    """
+    Returns the global visitor count. Increments by 1 on each call.
+    Starts at 21 on the first call.
+    """
+    vc = db.query(VisitorCount).first()
+    if not vc:
+        vc = VisitorCount(count=21)
+        db.add(vc)
+    else:
+        vc.count += 1
+    db.commit()
+    db.refresh(vc)
+    return {"visitors": vc.count}
 
 # ---------------------------------------------------------------------------
 # Health Check Endpoint

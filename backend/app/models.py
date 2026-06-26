@@ -75,3 +75,13 @@ class PatchMetric(Base):
     X = Column(Float, default=0.0)  # Contextual Importance
     L = Column(Float, default=0.0)  # LLM Confidence
     M = Column(Float, default=0.0)  # Multi-Patch Agreement
+
+class VisitorCount(Base):
+    """
+    VisitorCount table.
+    Stores the global website visitor count.
+    """
+    __tablename__ = "visitor_count"
+
+    id = Column(Integer, primary_key=True, index=True)
+    count = Column(Integer, default=21)

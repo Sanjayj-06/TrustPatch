@@ -85,4 +85,12 @@ export async function checkHealth(): Promise<boolean> {
   }
 }
 
+/**
+ * Fetch and increment the global visitor count.
+ */
+export async function getVisitorCount(): Promise<number> {
+  const response = await api.get('/visitors');
+  return response.data.visitors;
+}
+
 export default api;

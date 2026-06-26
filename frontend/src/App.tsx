@@ -22,7 +22,7 @@ import psgLogo from "./Images/psgtech.png";
 import yrsLogo from "./Images/75yrs.png";
 import aiConsortiumLogo from "./Images/aiconsortium.jpg";
 import tplogo from "./Images/TP1.png";
-import { uploadFiles, evaluateTrustPatch, checkHealth } from "./api/trustpatch";
+import { uploadFiles, evaluateTrustPatch, checkHealth, getVisitorCount } from "./api/trustpatch";
 import {
   AppState,
   PipelineStep,
@@ -93,11 +93,22 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [backendOnline, setBackendOnline] = useState<boolean | null>(null);
   const [activeSection, setActiveSection] = useState("upload");
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
     checkHealth().then((ok) => setBackendOnline(ok));
+    getVisitorCount().then(c => setVisitorCount(c)).catch(e => console.error(e));
   }, []);
 
   useEffect(() => {
@@ -285,20 +296,22 @@ export default function App() {
             })}
           </nav>
 
-          {/* Status indicator */}
-          <div className="flex items-center gap-2 text-xs">
-            {backendOnline === true ? (
-              <span className="flex items-center gap-1.5 text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          {/* Status Indicator */}
+          <div className="flex-shrink-0 text-xs font-medium">
+            {backendOnline === null ? (
+              <span className="text-slate-400 flex items-center gap-1.5">
+                <Wifi className="w-3.5 h-3.5" /> Checking connection...
+              </span>
+            ) : backendOnline ? (
+              <span className="text-emerald-600 flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                 System Online
               </span>
-            ) : backendOnline === false ? (
-              <span className="flex items-center gap-1.5 text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded-full">
-                <WifiOff className="w-3 h-3" />
-                Offline
-              </span>
             ) : (
-              <span className="text-slate-400">Connecting...</span>
+              <span className="text-red-500 flex items-center gap-1.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+                System Offline
+              </span>
             )}
           </div>
         </div>
@@ -576,23 +589,57 @@ export default function App() {
       </main>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-400 flex flex-col items-center gap-2">
-        <p>
-          TrustPatch &mdash; Trust-Aware APR Framework &mdash; Research
-          Prototype
-        </p>
-        <p>
-          Developed by{" "}
-          <a
-            href="https://www.linkedin.com/in/sanjay-jayakumar/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-500 hover:text-blue-600 hover:underline transition-colors font-medium"
-          >
-            Sanjay Jayakumar
-          </a>
-        </p>
+      <footer className="border-t border-slate-200 bg-white py-6 px-5 relative">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          
+          {/* Left: Visitors */}
+          <div className="flex-1 flex justify-center md:justify-start w-full">
+            {visitorCount !== null && (
+              <div className="text-slate-500 text-xs font-medium flex items-center gap-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Visitors: <span className="text-slate-700 font-bold">{visitorCount}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Center: Info */}
+          <div className="flex-none text-center text-xs text-slate-400">
+            <p>TrustPatch &mdash; Trust-Aware APR Framework &mdash; Research Prototype</p>
+            <p className="mt-1">
+              Developed by{" "}
+              <a
+                href="https://www.linkedin.com/in/sanjay-jayakumar/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:text-blue-600 hover:underline transition-colors font-medium"
+              >
+                Sanjay Jayakumar
+              </a>
+            </p>
+          </div>
+
+          {/* Right Spacer */}
+          <div className="flex-1 hidden md:block"></div>
+        </div>
       </footer>
+
+      {/* ── SCROLL TO TOP ── */}
+      {showScrollTop && (
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3.5 rounded-full shadow-lg transition-all animate-slide-up focus:outline-none focus:ring-4 focus:ring-blue-300"
+          title="Scroll to top"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="m18 15-6-6-6 6"/>
+          </svg>
+        </button>
+      )}
     </div>
   );
 }
