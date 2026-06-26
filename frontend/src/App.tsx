@@ -191,7 +191,7 @@ export default function App() {
           evaluation: evalResult,
         }));
 
-        setTimeout(() => scrollTo("pipeline"), 300);
+        setTimeout(() => scrollTo("results"), 300);
       } catch (err: any) {
         const errMsg =
           err?.response?.data?.detail || err?.message || "Evaluation failed";
@@ -260,7 +260,7 @@ export default function App() {
           </div>
 
           {/* Nav tabs */}
-          <nav className="flex items-center gap-1 bg-slate-100 rounded-xl p-1 overflow-x-auto w-full md:w-auto mt-3 md:mt-0 hide-scrollbar no-scrollbar scroll-smooth">
+          <nav className={`flex items-center ${state.phase !== "results" ? "justify-center" : "justify-start"} gap-1 bg-slate-100 rounded-xl p-1 overflow-x-auto w-full md:w-auto mt-3 md:mt-0 hide-scrollbar no-scrollbar scroll-smooth`}>
             {NAV_SECTIONS.map(({ id, label, icon: Icon }) => {
               if (
                 state.phase !== "results" &&
