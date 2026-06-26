@@ -18,10 +18,10 @@ import BAPRFailureAlert from "./components/BAPRFailureAlert";
 import AboutSection from "./components/AboutSection";
 import ArchitectureSection from "./components/ArchitectureSection";
 
-import psgLogo from "./Images/psgtech.png";
-import yrsLogo from "./Images/75yrs.png";
-import aiConsortiumLogo from "./Images/aiconsortium.jpg";
-import tplogo from "./Images/TP1.png";
+import psgLogo from "./images/psgtech.png";
+import yrsLogo from "./images/75yrs.png";
+import aiConsortiumLogo from "./images/aiconsortium.jpg";
+import tplogo from "./images/TP1.png";
 import { uploadFiles, evaluateTrustPatch, checkHealth } from "./api/trustpatch";
 import {
   AppState,
@@ -31,17 +31,17 @@ import {
   AllMetricsRow,
 } from "./types";
 import { CheckCircle2 } from "lucide-react";
-const Activity = () => null;
-const BarChart3 = () => null;
-const Brain = () => null;
-const Shield = () => null;
-const Table2 = () => null;
-const Upload = () => null;
-const Wifi = () => null;
-const WifiOff = () => null;
-const AlertCircle = () => null;
-const TrendingUp = () => null;
-const Info = () => null;
+const Activity = (props: { className?: string }) => null;
+const BarChart3 = (props: { className?: string }) => null;
+const Brain = (props: { className?: string }) => null;
+const Shield = (props: { className?: string }) => null;
+const Table2 = (props: { className?: string }) => null;
+const Upload = (props: { className?: string }) => null;
+const Wifi = (props: { className?: string }) => null;
+const WifiOff = (props: { className?: string }) => null;
+const AlertCircle = (props: { className?: string }) => null;
+const TrendingUp = (props: { className?: string }) => null;
+const Info = (props: { className?: string }) => null;
 // ============================================================
 // Constants
 // ============================================================

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import arch1 from "../Images/arch1.png";
-import arch2 from "../Images/arch2.png";
-import apiDiagram from "../Images/api.png";
+import arch1 from "../images/arch1.png";
+import arch2 from "../images/arch2.png";
+import apiDiagram from "../images/api.png";
 
 export default function ArchitectureSection() {
   const containerRef = useRef<HTMLDivElement>(null);
