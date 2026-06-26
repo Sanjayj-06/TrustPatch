@@ -241,7 +241,7 @@ export default function App() {
     <div className="min-h-screen bg-dot-grid">
       {/* ── HEADER ── */}
       <header className="sticky top-0 z-50 bg-white/95 border-b border-slate-200 backdrop-blur-sm shadow-sm">
-        <div className="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-5 py-3 flex flex-col md:flex-row items-center justify-between gap-3 md:gap-0">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <img
@@ -260,7 +260,7 @@ export default function App() {
           </div>
 
           {/* Nav tabs */}
-          <nav className="hidden md:flex items-center gap-0.5 bg-slate-100 rounded-xl p-1">
+          <nav className="flex items-center gap-1 bg-slate-100 rounded-xl p-1 overflow-x-auto w-full md:w-auto mt-3 md:mt-0 hide-scrollbar no-scrollbar scroll-smooth">
             {NAV_SECTIONS.map(({ id, label, icon: Icon }) => {
               if (
                 state.phase !== "results" &&
@@ -273,7 +273,7 @@ export default function App() {
                 <button
                   key={id}
                   onClick={() => scrollTo(id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${activeSection === id
+                  className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${activeSection === id
                       ? "bg-white text-blue-700 shadow-sm border border-slate-200"
                       : "text-slate-500 hover:text-slate-700"
                     }`}
@@ -309,7 +309,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-5 pt-8 pb-6 flex flex-col items-center text-center">
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 mb-2">
             {/* Left Logos */}
-            <div className="flex items-center justify-end gap-6 md:border-r border-slate-200 md:pr-12 flex-1">
+            <div className="flex items-center justify-center md:justify-end gap-6 md:border-r border-slate-200 md:pr-12 flex-1 w-full md:w-auto">
               <img
                 src={psgLogo}
                 alt="PSG Tech"
@@ -330,7 +330,7 @@ export default function App() {
             </div>
 
             {/* Right Logos */}
-            <div className="flex items-center justify-start gap-6 md:border-l border-slate-200 md:pl-12 flex-1">
+            <div className="flex items-center justify-center md:justify-start gap-6 md:border-l border-slate-200 md:pl-12 flex-1 w-full md:w-auto">
               {/* Scaled up the AI consortium logo because the image itself has empty padding */}
               <img
                 src={aiConsortiumLogo}
@@ -642,8 +642,8 @@ function WinnerBanner({
   if (baprTrap && !agreed) {
     return (
       <div className="rounded-2xl p-5 bg-white border-2 border-red-300 shadow-sm">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          <div className="flex items-center gap-8">
+        <div className="flex flex-col lg:flex-row items-center justify-between flex-wrap gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
             <div className="text-center">
               <p className="text-xs text-red-500 font-bold uppercase tracking-widest mb-1">
                 BAPR Selected
@@ -687,8 +687,8 @@ function WinnerBanner({
       className={`rounded-2xl p-5 bg-white border shadow-sm ${agreed ? "border-emerald-200" : "border-blue-200"
         }`}
     >
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-8">
+      <div className="flex flex-col lg:flex-row items-center justify-between flex-wrap gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
           <div className="text-center">
             <p className="text-xs text-indigo-500 font-semibold uppercase tracking-widest mb-1">
               BAPR Selected

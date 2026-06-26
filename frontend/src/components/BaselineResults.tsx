@@ -86,7 +86,7 @@ export default function BaselineResults({ result }: BaselineResultsProps) {
       )}
 
       {/* Metrics */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="stat-card gsap-stat-card">
           <p className="text-xs text-slate-400 mb-1">Selected Patch</p>
           <p className="text-2xl font-black gradient-text-baseline">
@@ -149,7 +149,7 @@ export default function BaselineResults({ result }: BaselineResultsProps) {
         <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
           Limitations
         </p>
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
           {[
             "Ignores code complexity",
             "No security analysis",

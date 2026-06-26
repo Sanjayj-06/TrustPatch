@@ -151,7 +151,7 @@ export default function UploadSection({
     <div className="space-y-6 animate-fade-in">
       {/* Header */}
       <div className="section-card">
-        <div className="flex items-start justify-between gap-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <div className="inline-flex items-center gap-2 tag-blue mb-3">
               <Zap className="w-3.5 h-3.5" />
@@ -168,7 +168,7 @@ export default function UploadSection({
           </div>
 
           {/* Sample toggle - Bright & Classy */}
-          <div className="flex-shrink-0 flex items-center gap-4 bg-blue-100 border border-blue-300 rounded-xl px-4 py-3 shadow-sm transition-colors hover:bg-blue-200/50">
+          <div className="flex-shrink-0 flex items-center justify-between w-full md:w-auto gap-4 bg-blue-100 border border-blue-300 rounded-xl px-4 py-3 shadow-sm transition-colors hover:bg-blue-200/50">
             <div className="flex flex-col">
               <p className="text-sm font-bold text-blue-900">
                 Try a Sample Dataset

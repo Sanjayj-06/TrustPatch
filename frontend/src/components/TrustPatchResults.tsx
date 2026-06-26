@@ -184,7 +184,7 @@ export default function TrustPatchResults({
           <Brain className="w-3.5 h-3.5" />
           Top Contributing Trust Factors
         </p>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {result.top_factors.slice(0, 3).map((param, i) => (
             <div
               key={param}
@@ -220,7 +220,7 @@ export default function TrustPatchResults({
         <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
           Advantages over BAPR
         </p>
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
           {[
             "Considers code complexity",
             "Security static analysis",
