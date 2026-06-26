@@ -1,14 +1,20 @@
 /**
- * components/TrustPatchResults.tsx
- * ---------------------------------
- * Displays the TrustPatch (TAPR) pipeline result with full trust score,
- * risk assessment, recommendation, and top contributing factors.
- * Styled in teal to contrast with BAPR's indigo.
+ * components/TrustPatchResults.tsx — Light theme
  */
 
-import React, { useState } from 'react';
-import { TrustPatchResult, ExplanationData, PARAM_LABELS } from '../types';
-import { Code2, ChevronDown, ChevronUp, Shield, Brain } from 'lucide-react';
+import React, { useState } from "react";
+import { TrustPatchResult, ExplanationData, PARAM_LABELS } from "../types";
+import { CheckCircle } from "lucide-react";
+const Code2 = () => null;
+const ChevronDown = () => null;
+const ChevronUp = () => null;
+const Shield = () => null;
+const Brain = () => null;
+const XCircle = () => null;
+const AlertTriangle = () => null;
+
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 interface TrustPatchResultsProps {
   result: TrustPatchResult;
@@ -17,118 +23,154 @@ interface TrustPatchResultsProps {
 
 function TrustGauge({ score }: { score: number }) {
   const pct = Math.round(score * 100);
-  const angle = score * 180; // 0 → 0°, 1 → 180°
-
-  const color = score >= 0.70 ? '#10b981' : score >= 0.45 ? '#f59e0b' : '#ef4444';
+  const color =
+    score >= 0.7 ? "#16a34a" : score >= 0.45 ? "#d97706" : "#dc2626";
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="relative w-32 h-16 overflow-hidden">
-        {/* Gauge background arc */}
+      <div className="relative w-28 h-14 overflow-hidden">
         <svg viewBox="0 0 120 60" className="w-full h-full">
           <path
             d="M 10 60 A 50 50 0 0 1 110 60"
             fill="none"
-            stroke="#1e293b"
-            strokeWidth="12"
+            stroke="#e2e8f0"
+            strokeWidth="10"
             strokeLinecap="round"
           />
-          {/* Gauge fill arc */}
           <path
             d="M 10 60 A 50 50 0 0 1 110 60"
             fill="none"
             stroke={color}
-            strokeWidth="12"
+            strokeWidth="10"
             strokeLinecap="round"
             strokeDasharray={`${score * 157} 157`}
-            style={{ filter: `drop-shadow(0 0 6px ${color})` }}
           />
-          {/* Needle */}
           <line
             x1="60"
             y1="60"
-            x2={60 + 38 * Math.cos((Math.PI * (1 - score)))}
-            y2={60 - 38 * Math.sin((Math.PI * (1 - score)))}
-            stroke="white"
+            x2={60 + 36 * Math.cos(Math.PI * (1 - score))}
+            y2={60 - 36 * Math.sin(Math.PI * (1 - score))}
+            stroke="#334155"
             strokeWidth="2"
             strokeLinecap="round"
           />
-          <circle cx="60" cy="60" r="4" fill="white" />
+          <circle cx="60" cy="60" r="3.5" fill="#334155" />
         </svg>
       </div>
       <div className="text-center">
-        <p className="text-4xl font-black" style={{ color }}>{pct}%</p>
-        <p className="text-xs text-slate-500">Trust Score</p>
+        <p className="text-3xl font-black" style={{ color }}>
+          {pct}%
+        </p>
+        <p className="text-xs text-slate-400">Trust Score</p>
       </div>
     </div>
   );
 }
 
-export default function TrustPatchResults({ result, explanation }: TrustPatchResultsProps) {
+export default function TrustPatchResults({
+  result,
+  explanation,
+}: TrustPatchResultsProps) {
   const [showCode, setShowCode] = useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
-  const riskColors = {
-    Low: 'score-badge-low',
-    Medium: 'score-badge-medium',
-    High: 'score-badge-high',
+  useGSAP(
+    () => {
+      gsap.from(".gsap-tapr-card", {
+        y: 20,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "power2.out",
+      });
+    },
+    { scope: containerRef },
+  );
+
+  const riskStyle = {
+    Low: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    Medium: "bg-amber-50 text-amber-700 border-amber-200",
+    High: "bg-red-50 text-red-600 border-red-200",
   };
 
-  const recColors = {
-    Accept: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
-    Review: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
-    Reject: 'bg-red-500/20 text-red-400 border border-red-500/30',
+  const recStyle = {
+    Accept: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    Review: "bg-amber-50 text-amber-700 border-amber-200",
+    Reject: "bg-red-50 text-red-600 border-red-200",
   };
 
   return (
-    <div className="trust-card p-6 space-y-5 animate-slide-up">
+    <div
+      ref={containerRef}
+      className="p-6 space-y-5 animate-slide-up rounded-2xl border-2 border-blue-200 bg-white shadow-sm"
+    >
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-teal-500/20 border border-teal-500/30 flex items-center justify-center text-lg">
-            🛡️
-          </div>
           <div>
-            <h3 className="text-lg font-bold text-white">TrustPatch Result</h3>
-            <p className="text-xs text-slate-400">10-dimensional trust-aware selection</p>
+            <h3 className="text-base font-bold text-slate-900">
+              TrustPatch Result
+            </h3>
+            <p className="text-xs text-slate-400">
+              10-dimensional trust-aware selection
+            </p>
           </div>
         </div>
-        <span className="score-badge bg-teal-500/20 text-teal-300 border border-teal-500/30 text-sm px-3 py-1">
+        <span className="text-xs px-2.5 py-1 rounded-full font-semibold border bg-blue-50 text-blue-700 border-blue-200">
           TAPR
         </span>
       </div>
 
-      {/* Main Metrics */}
+      {/* Main metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Trust Gauge */}
-        <div className="glass-card p-5 flex flex-col items-center gap-3">
+        <div className="stat-card flex flex-col items-center gap-3 gsap-tapr-card">
           <TrustGauge score={result.trust_score} />
           <div className="flex gap-2">
-            <span className={riskColors[result.risk]}>
-              🎯 {result.risk} Risk
+            <span
+              className={`score-badge border text-xs ${riskStyle[result.risk]}`}
+            >
+              {result.risk === "Low" ? (
+                <CheckCircle className="w-3 h-3" />
+              ) : result.risk === "Medium" ? (
+                <AlertTriangle className="w-3 h-3" />
+              ) : (
+                <XCircle className="w-3 h-3" />
+              )}
+              {result.risk} Risk
             </span>
-            <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ${recColors[result.recommendation]}`}>
-              {result.recommendation === 'Accept' ? '✓' : result.recommendation === 'Review' ? '⚠' : '✗'} {result.recommendation}
+            <span
+              className={`score-badge border text-xs ${recStyle[result.recommendation]}`}
+            >
+              {result.recommendation === "Accept" ? (
+                <CheckCircle className="w-3 h-3" />
+              ) : result.recommendation === "Review" ? (
+                <AlertTriangle className="w-3 h-3" />
+              ) : (
+                <XCircle className="w-3 h-3" />
+              )}
+              {result.recommendation}
             </span>
           </div>
         </div>
 
-        {/* Metrics Summary */}
         <div className="space-y-3">
-          <div className="glass-card p-4 text-center">
-            <p className="text-xs text-slate-500 mb-1">Selected Patch</p>
-            <p className="text-3xl font-black gradient-text-trust">{result.selected_patch}</p>
-            <p className="text-xs text-slate-500 mt-1">Highest trust score</p>
+          <div className="stat-card gsap-tapr-card">
+            <p className="text-xs text-slate-400 mb-1">Selected Patch</p>
+            <p className="text-2xl font-black gradient-text-trust">
+              {result.selected_patch}
+            </p>
+            <p className="text-xs text-slate-400 mt-1">Highest trust score</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="glass-card p-3 text-center">
-              <p className="text-xs text-slate-500">Tests</p>
-              <p className="text-lg font-bold text-white">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="stat-card text-center gsap-tapr-card">
+              <p className="text-xs text-slate-400">Tests</p>
+              <p className="text-base font-bold text-slate-900">
                 {result.passed_tests}/{result.total_tests}
               </p>
             </div>
-            <div className="glass-card p-3 text-center">
-              <p className="text-xs text-slate-500">Time</p>
-              <p className="text-lg font-bold text-white font-mono">
+            <div className="stat-card text-center gsap-tapr-card">
+              <p className="text-xs text-slate-400">Time</p>
+              <p className="text-base font-bold text-slate-900 font-mono">
                 {result.execution_time.toFixed(2)}s
               </p>
             </div>
@@ -136,20 +178,23 @@ export default function TrustPatchResults({ result, explanation }: TrustPatchRes
         </div>
       </div>
 
-      {/* Top 3 Contributing Factors */}
-      <div>
-        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-          <Brain className="w-4 h-4" />
+      {/* Top factors */}
+      <div className="gsap-tapr-card">
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+          <Brain className="w-3.5 h-3.5" />
           Top Contributing Trust Factors
         </p>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           {result.top_factors.slice(0, 3).map((param, i) => (
-            <div key={param} className="glass-card p-3 text-center border border-teal-500/20">
-              <div className="text-lg mb-1">
-                {i === 0 ? '🥇' : i === 1 ? '🥈' : '🥉'}
+            <div
+              key={param}
+              className="bg-blue-50 border border-blue-200 rounded-xl p-3 text-center"
+            >
+              <div className="text-xs font-bold text-slate-400 mb-0.5">
+                #{i + 1}
               </div>
-              <p className="text-xs font-bold text-teal-400">{param}</p>
-              <p className="text-xs text-slate-500 mt-0.5">
+              <p className="text-sm font-black text-blue-700">{param}</p>
+              <p className="text-[10px] text-slate-400 mt-0.5 leading-tight">
                 {PARAM_LABELS[param as keyof typeof PARAM_LABELS] || param}
               </p>
             </div>
@@ -157,43 +202,59 @@ export default function TrustPatchResults({ result, explanation }: TrustPatchRes
         </div>
       </div>
 
-      {/* Trust Formula Display */}
-      <div className="bg-slate-800/50 rounded-xl p-4 font-mono">
-        <p className="text-xs text-slate-500 mb-2">Trust Formula Applied:</p>
-        <p className="text-sm text-teal-400">
-          Trust({result.selected_patch}) = Σ(w<sub>j</sub> × f<sub>j</sub>) = <strong className="text-white">{result.trust_score.toFixed(4)}</strong>
+      {/* Trust formula */}
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 gsap-tapr-card">
+        <p className="text-xs text-blue-600 font-semibold mb-1.5">
+          Trust Formula Applied
+        </p>
+        <p className="text-sm text-blue-800 font-mono">
+          Trust({result.selected_patch}) = Σ(w<sub>j</sub> × f<sub>j</sub>) ={" "}
+          <strong className="text-blue-900 font-black">
+            {result.trust_score.toFixed(4)}
+          </strong>
         </p>
       </div>
 
-      {/* Advantages over BAPR */}
-      <div className="space-y-2">
-        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Advantages over BAPR</p>
-        <div className="grid grid-cols-2 gap-2">
+      {/* Advantages */}
+      <div className="gsap-tapr-card">
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          Advantages over BAPR
+        </p>
+        <div className="grid grid-cols-2 gap-1.5">
           {[
-            'Considers code complexity',
-            'Security static analysis',
-            'Behavioral verification',
-            'Historical success data',
-            'Regression risk analysis',
-            'LLM confidence scoring',
-          ].map(l => (
-            <div key={l} className="flex items-center gap-2 text-xs text-teal-400">
-              <span>✓</span>
+            "Considers code complexity",
+            "Security static analysis",
+            "Behavioral verification",
+            "Historical success data",
+            "Regression risk analysis",
+            "LLM confidence scoring",
+          ].map((l) => (
+            <div
+              key={l}
+              className="flex items-center gap-2 text-xs text-emerald-700"
+            >
+              <CheckCircle className="w-3 h-3 text-emerald-500 flex-shrink-0" />
               {l}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Code Toggle */}
-      <button
-        onClick={() => setShowCode(!showCode)}
-        className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-300 transition-colors"
-      >
-        <Code2 className="w-4 h-4" />
-        {showCode ? 'Hide' : 'View'} selected patch code
-        {showCode ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-      </button>
+      {/* Code toggle */}
+      <div className="gsap-tapr-card">
+        <button
+          onClick={() => setShowCode(!showCode)}
+          className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-600 transition-colors"
+        >
+          <Code2 className="w-4 h-4" />
+          {showCode ? "Hide" : "View"} selected patch code
+          {showCode ? (
+            <ChevronUp className="w-3 h-3" />
+          ) : (
+            <ChevronDown className="w-3 h-3" />
+          )}
+        </button>
+      </div>
 
       {showCode && (
         <pre className="code-block text-xs max-h-48 overflow-auto animate-fade-in">

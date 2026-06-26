@@ -37,8 +37,8 @@ PARAM_LABELS = {
 }
 
 PARAM_ICONS = {
-    "T": "🧪", "S": "🔬", "C": "🧩", "H": "📚", "A": "🛡️",
-    "B": "⚖️", "R": "🔁", "X": "📍", "L": "🤖", "M": "🤝",
+    "T": "", "S": "", "C": "", "H": "", "A": "",
+    "B": "", "R": "", "X": "", "L": "", "M": "",
 }
 
 WEIGHTS = {
@@ -58,11 +58,11 @@ MEDIUM_THRESHOLD = 0.35
 def classify_risk(trust_score: float) -> tuple:
     """Map trust score to (risk_level, recommendation, icon)."""
     if trust_score >= 0.70:
-        return "Low",    "Accept", "🟢"
+        return "Low",    "Accept", ""
     elif trust_score >= 0.45:
-        return "Medium", "Review", "🟡"
+        return "Medium", "Review", ""
     else:
-        return "High",   "Reject", "🔴"
+        return "High",   "Reject", ""
 
 
 # ---------------------------------------------------------------------------
@@ -97,41 +97,40 @@ def _make_bapr_trap_explanation(
     """
     bapr_pct = round(bapr_pass_rate * 100)
     trap_explanation = (
-        f"⚠️ BAPR FAILURE DETECTED — BAPR selected {bapr_patch_id} because it "
-        f"passed {bapr_pct}% of unit tests. But {bapr_patch_id} is a "
-        f"test-gaming patch: it hardcodes lookup tables for every test input "
-        f"instead of fixing the actual bug. Any real-world input (not in the "
-        f"lookup table) returns completely wrong results."
+        f"DIVERGENCE DETECTED: Baseline APR selected {bapr_patch_id} based on a "
+        f"{bapr_pct}% test pass rate. However, {bapr_patch_id} exhibits test-gaming characteristics: "
+        f"it hardcodes lookup tables for specific test inputs rather than resolving the underlying algorithmic fault. "
+        f"Out-of-distribution inputs will result in unexpected failures."
     )
 
     bullets = [
         (
-            f"🧪 BAPR's only signal: {bapr_pct}% test pass rate — looked great on paper"
+            f"Baseline primary signal: {bapr_pct}% test pass rate (insufficient for functional correctness)."
         ),
         (
-            f"🚨 {bapr_patch_id} is a test-gaming patch: hardcoded _KNOWN_AVERAGES, "
-            f"_KNOWN_AGES lookup tables — memorises tests, doesn't fix bugs"
+            f"Patch {bapr_patch_id} identified as test-gaming: hardcoded _KNOWN_AVERAGES and "
+            f"_KNOWN_AGES tables indicate memorization rather than generalization."
         ),
         (
-            f"⚖️ Behavioral Consistency (B): {round(rejected_metrics.get('B', 0) * 100, 1)}% "
-            f"← catastrophic. Any input not in the lookup table gets the wrong answer"
+            f"Behavioral Consistency (B): {round(rejected_metrics.get('B', 0) * 100, 1)}%. "
+            f"Critical failure on out-of-distribution evaluation."
         ),
         (
-            f"🧩 Code Complexity (C): {round(rejected_metrics.get('C', 0) * 100, 1)}% "
-            f"← extremely high. isinstance() chains, nested ternaries, dead cache code"
+            f"Code Complexity (C): {round(rejected_metrics.get('C', 0) * 100, 1)}%. "
+            f"Elevated complexity due to isinstance() chaining and nested conditional logic."
         ),
         (
-            f"🛡️ Static Analysis (A): {round(rejected_metrics.get('A', 0) * 100, 1)}% "
-            f"← pylint flags magic numbers, _COERCE_CACHE (unused), overcomplexity"
+            f"Static Analysis (A): {round(rejected_metrics.get('A', 0) * 100, 1)}%. "
+            f"Static analysis engine flagged magic numbers and dead code structures."
         ),
         (
-            f"🤖 LLM Confidence (L): {round(rejected_metrics.get('L', 0) * 100, 1)}% "
-            f"← any language model would immediately flag this as an anti-pattern"
+            f"LLM Confidence (L): {round(rejected_metrics.get('L', 0) * 100, 1)}%. "
+            f"Language model validation rejected the implementation as an anti-pattern."
         ),
         (
-            f"✅ TrustPatch selected {tapr_patch_id} instead "
-            f"(trust score {tapr_trust_score:.3f}) — the genuine algorithmic fix "
-            f"with low complexity, high behavioral consistency, and strong historical success"
+            f"TrustPatch Selection: {tapr_patch_id} "
+            f"(Trust Score: {tapr_trust_score:.3f}). Verified as a generalized algorithmic fix "
+            f"with low complexity and high behavioral consistency."
         ),
     ]
 
@@ -160,7 +159,7 @@ def _make_standard_explanation(
     pct = round(pass_rate * 100)
 
     bullets.append(
-        f"🧪 Passed {pct}% of unit tests — confirms functional correctness"
+        f"Test Pass Rate: {pct}% (baseline functional correctness constraint satisfied)."
     )
 
     for param in top_factors[:5]:
@@ -168,14 +167,15 @@ def _make_standard_explanation(
         label = PARAM_LABELS.get(param, param)
         icon  = PARAM_ICONS.get(param, "•")
         level = "strong" if val >= HIGH_THRESHOLD else "moderate" if val >= MEDIUM_THRESHOLD else "weak"
+        icon_prefix = f"{icon} " if icon else ""
         bullets.append(
-            f"{icon} {label}: {round(val * 100, 1)}% — {level} signal "
+            f"{label}: {round(val * 100, 1)}% — {level} signal "
             f"(weight {round(WEIGHTS.get(param, 0) * 100)}%)"
         )
 
     bullets.append(
-        f"🏆 Highest weighted trust score across all 5 candidates: "
-        f"Trust({selected_patch_id}) = {trust_score:.4f}"
+        f"Selection confidence: Highest weighted trust score across all candidates. "
+        f"Trust({selected_patch_id}) = {trust_score:.4f}."
     )
     return bullets
 
