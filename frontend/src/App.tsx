@@ -159,6 +159,9 @@ export default function App() {
           testFilename: uploadResp.test_filename,
         }));
 
+        // Start the backend evaluation concurrently with the UI animation
+        const evalPromise = evaluateTrustPatch(sessionId);
+
         const stepIds = [
           "generate",
           "test",
@@ -170,11 +173,12 @@ export default function App() {
         ];
         for (let i = 0; i < stepIds.length; i++) {
           animateStep(stepIds[i], i + 1);
-          if (i < 2) await new Promise((r) => setTimeout(r, STEP_DELAY));
+          // Wait for each step to animate smoothly
+          await new Promise((r) => setTimeout(r, STEP_DELAY));
         }
 
-        const evalResult: EvaluationResponse =
-          await evaluateTrustPatch(sessionId);
+        // Wait for the backend response if it's still processing
+        const evalResult: EvaluationResponse = await evalPromise;
 
         setPipelineSteps((prev) =>
           prev.map((s) => ({ ...s, status: "done" as StepStatus })),
