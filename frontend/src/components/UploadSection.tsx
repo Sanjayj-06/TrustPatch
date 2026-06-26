@@ -7,14 +7,14 @@
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { CheckCircle } from "lucide-react";
-const Upload = () => null;
-const FileCode = () => null;
-const TestTube = () => null;
-const AlertCircle = () => null;
-const Zap = () => null;
-const Cpu = () => null;
-const Layers = () => null;
-const Lightbulb = () => null;
+const Upload = (props: any) => null;
+const FileCode = (props: any) => null;
+const TestTube = (props: any) => null;
+const AlertCircle = (props: any) => null;
+const Zap = (props: any) => null;
+const Cpu = (props: any) => null;
+const Layers = (props: any) => null;
+const Lightbulb = (props: any) => null;
 
 interface UploadSectionProps {
   onUpload: (buggyFile: File, testFile: File) => Promise<void>;
@@ -167,24 +167,26 @@ export default function UploadSection({
             </p>
           </div>
 
-          {/* Sample toggle */}
-          <div className="flex-shrink-0 flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3">
-            <div>
-              <p className="text-sm font-semibold text-slate-800">
-                Use Sample Files
+          {/* Sample toggle - Bright & Classy */}
+          <div className="flex-shrink-0 flex items-center gap-4 bg-blue-100 border border-blue-300 rounded-xl px-4 py-3 shadow-sm transition-colors hover:bg-blue-200/50">
+            <div className="flex flex-col">
+              <p className="text-sm font-bold text-blue-900">
+                Try a Sample Dataset
               </p>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Pre-built demo with 3 bugs
+              <p className="text-xs text-blue-700 mt-0.5 font-semibold">
+                No files? Run a pre-built evaluation
               </p>
             </div>
+            
             <button
               onClick={() => setUseSample(!useSample)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 flex-shrink-0 ${
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 flex-shrink-0 ml-2 shadow-sm ${
                 useSample ? "bg-blue-600" : "bg-slate-300"
               }`}
             >
+              <span className="sr-only">Use sample files</span>
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${
+                className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-sm transition-transform duration-200 ease-in-out ${
                   useSample ? "translate-x-6" : "translate-x-1"
                 }`}
               />

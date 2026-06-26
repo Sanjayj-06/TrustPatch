@@ -4,9 +4,9 @@
 
 import React from "react";
 import { CheckCircle } from "lucide-react";
-const Circle = () => null;
-const Loader = () => null;
-const XCircle = () => null;
+const Circle = (props: any) => null;
+const Loader = (props: any) => null;
+const XCircle = (props: any) => null;
 
 import { PipelineStep, StepStatus } from "../types";
 

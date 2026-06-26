@@ -5,11 +5,11 @@
 import React, { useState } from "react";
 import { ExplanationData, PARAM_LABELS } from "../types";
 import { CheckCircle } from "lucide-react";
-const Brain = () => null;
-const ChevronDown = () => null;
-const ChevronUp = () => null;
-const Code2 = () => null;
-const ArrowLeftRight = () => null;
+const Brain = (props: any) => null;
+const ChevronDown = (props: any) => null;
+const ChevronUp = (props: any) => null;
+const Code2 = (props: any) => null;
+const ArrowLeftRight = (props: any) => null;
 
 interface ExplainabilityCardProps {
   explanation: ExplanationData;

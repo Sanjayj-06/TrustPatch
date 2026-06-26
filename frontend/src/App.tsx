@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useCallback, useRef, useEffect } from "react";
+// forcing a hot reload
 import UploadSection from "./components/UploadSection";
 import PipelineVisualizer from "./components/PipelineVisualizer";
 import StepProgress, { TRUSTPATCH_STEPS } from "./components/StepProgress";
@@ -15,6 +16,7 @@ import ComparisonDashboard from "./components/ComparisonDashboard";
 import ExplainabilityCard from "./components/ExplainabilityCard";
 import BAPRFailureAlert from "./components/BAPRFailureAlert";
 import AboutSection from "./components/AboutSection";
+import ArchitectureSection from "./components/ArchitectureSection";
 
 import psgLogo from "./Images/psgtech.png";
 import yrsLogo from "./Images/75yrs.png";
@@ -46,6 +48,7 @@ const Info = () => null;
 
 const NAV_SECTIONS = [
   { id: "about", label: "About", icon: Info },
+  { id: "architecture", label: "Architecture", icon: Info },
   { id: "upload", label: "Upload", icon: Upload },
   { id: "pipeline", label: "Pipeline", icon: Activity },
   { id: "results", label: "Results", icon: Shield },
@@ -255,6 +258,7 @@ export default function App() {
               if (
                 state.phase !== "results" &&
                 id !== "about" &&
+                id !== "architecture" &&
                 id !== "upload"
               )
                 return null;
@@ -262,11 +266,10 @@ export default function App() {
                 <button
                   key={id}
                   onClick={() => scrollTo(id)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${
-                    activeSection === id
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 ${activeSection === id
                       ? "bg-white text-blue-700 shadow-sm border border-slate-200"
                       : "text-slate-500 hover:text-slate-700"
-                  }`}
+                    }`}
                 >
                   <Icon className="w-3 h-3" />
                   {label}
@@ -356,6 +359,19 @@ export default function App() {
           }}
         >
           <AboutSection />
+        </div>
+
+        {/* Architecture Section */}
+        <ArchitectureSection />
+
+        {/* Transition to Interactive Tool */}
+        <div className="text-center py-8">
+          <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+            See TrustPatch in Action
+          </h2>
+          <p className="text-slate-600 mt-3 max-w-2xl mx-auto font-medium leading-relaxed">
+            Now that you understand the underlying architecture and trust evaluation pipeline, try it out yourself! Upload a patch file below to see how TrustPatch seamlessly detects test-gaming and recommends reliable fixes in real time.
+          </p>
         </div>
 
         {/* Upload Section */}
@@ -644,9 +660,8 @@ function WinnerBanner({
 
   return (
     <div
-      className={`rounded-2xl p-5 bg-white border shadow-sm ${
-        agreed ? "border-emerald-200" : "border-blue-200"
-      }`}
+      className={`rounded-2xl p-5 bg-white border shadow-sm ${agreed ? "border-emerald-200" : "border-blue-200"
+        }`}
     >
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-8">

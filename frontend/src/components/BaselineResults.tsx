@@ -4,12 +4,12 @@
 
 import React, { useState } from "react";
 import { BaselineResult } from "../types";
-const Code2 = () => null;
-const ChevronDown = () => null;
-const ChevronUp = () => null;
-const AlertTriangle = () => null;
-const FlaskConical = () => null;
-const XCircle = () => null;
+const Code2 = (props: any) => null;
+const ChevronDown = (props: any) => null;
+const ChevronUp = (props: any) => null;
+const AlertTriangle = (props: any) => null;
+const FlaskConical = (props: any) => null;
+const XCircle = (props: any) => null;
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";

@@ -4,7 +4,7 @@
  */
 
 import React from "react";
-const Lightbulb = () => null;
+const Lightbulb = (props: any) => null;
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";

@@ -4,8 +4,8 @@
 
 import React, { useState } from "react";
 import { AllMetricsRow, PARAM_LABELS, WEIGHTS } from "../types";
-const ChevronUp = () => null;
-const ChevronDown = () => null;
+const ChevronUp = (props: any) => null;
+const ChevronDown = (props: any) => null;
 
 interface PatchRankingTableProps {
   patches: AllMetricsRow[];

@@ -5,13 +5,13 @@
 import React, { useState } from "react";
 import { TrustPatchResult, ExplanationData, PARAM_LABELS } from "../types";
 import { CheckCircle } from "lucide-react";
-const Code2 = () => null;
-const ChevronDown = () => null;
-const ChevronUp = () => null;
-const Shield = () => null;
-const Brain = () => null;
-const XCircle = () => null;
-const AlertTriangle = () => null;
+const Code2 = (props: any) => null;
+const ChevronDown = (props: any) => null;
+const ChevronUp = (props: any) => null;
+const Shield = (props: any) => null;
+const Brain = (props: any) => null;
+const XCircle = (props: any) => null;
+const AlertTriangle = (props: any) => null;
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";

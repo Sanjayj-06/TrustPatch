@@ -23,11 +23,11 @@ import {
 } from "recharts";
 import { AllMetricsRow, ExecutionTimeChartData } from "../types";
 import { CheckCircle } from "lucide-react";
-const BarChart2 = () => null;
-const Scale = () => null;
-const AlertTriangle = () => null;
-const Zap = () => null;
-const Lightbulb = () => null;
+const BarChart2 = (props: any) => null;
+const Scale = (props: any) => null;
+const AlertTriangle = (props: any) => null;
+const Zap = (props: any) => null;
+const Lightbulb = (props: any) => null;
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";

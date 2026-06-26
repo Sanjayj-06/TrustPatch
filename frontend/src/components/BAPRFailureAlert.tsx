@@ -5,15 +5,15 @@
 
 import React, { useState, useEffect } from "react";
 import { CheckCircle } from "lucide-react";
-const AlertTriangle = () => null;
-const Shield = () => null;
-const ChevronDown = () => null;
-const ChevronUp = () => null;
-const XCircle = () => null;
-const BarChart2 = () => null;
-const GitBranch = () => null;
-const ShieldAlert = () => null;
-const Bot = () => null;
+const AlertTriangle = (props: any) => null;
+const Shield = (props: any) => null;
+const ChevronDown = (props: any) => null;
+const ChevronUp = (props: any) => null;
+const XCircle = (props: any) => null;
+const BarChart2 = (props: any) => null;
+const GitBranch = (props: any) => null;
+const ShieldAlert = (props: any) => null;
+const Bot = (props: any) => null;
 
 import { ExplanationData } from "../types";
 
@@ -59,29 +59,25 @@ export default function BAPRFailureAlert({
   const baprPct = Math.round(baprPassRate * 100);
 
   return (
-    <div className="animate-slide-up">
-      <div className="rounded-2xl border-2 border-red-300 bg-white shadow-sm overflow-hidden">
-        {/* Header */}
-        <div className="bg-red-50 border-b border-red-200 p-5">
+    <div className="animate-slide-up mt-8 mb-8">
+      <div className="rounded-xl border border-slate-300 bg-white shadow-sm overflow-hidden">
+        {/* Minimal Academic Header */}
+        <div className="bg-white px-6 py-4 border-b border-slate-200">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
+              <ShieldAlert className="w-6 h-6 text-red-600 flex-shrink-0" />
               <div>
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-xs font-bold text-red-600 uppercase tracking-widest bg-red-100 px-2 py-0.5 rounded-full border border-red-300">
-                    BAPR FAILURE DETECTED
-                  </span>
-                </div>
-                <h3 className="text-base font-black text-slate-900">
-                  BAPR Fell for the Test-Gaming Trap
+                <h3 className="text-xl font-serif font-bold text-slate-900 tracking-tight">
+                  Critical Finding: Baseline System Test-Gaming
                 </h3>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  TrustPatch correctly identified and rejected the unsafe patch
+                <p className="text-sm text-slate-600 mt-1 font-medium">
+                  TrustPatch successfully identified and rejected a patch that memorizes tests but fails on generalized data.
                 </p>
               </div>
             </div>
             <button
               onClick={() => setExpanded(!expanded)}
-              className="text-slate-400 hover:text-slate-600 transition-colors flex-shrink-0"
+              className="text-slate-400 hover:text-slate-700 transition-colors flex-shrink-0"
             >
               {expanded ? (
                 <ChevronUp className="w-5 h-5" />
@@ -95,76 +91,53 @@ export default function BAPRFailureAlert({
         {expanded && (
           <div className="p-5 space-y-5">
             {/* Score comparison */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* BAPR */}
-              <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center space-y-2">
-                <p className="text-xs font-bold text-red-600 uppercase tracking-wider">
-                  BAPR Selected
+              <div className="bg-white border border-slate-200 rounded-lg p-6 text-center">
+                <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">
+                  Baseline Selection
                 </p>
-                <p className="text-4xl font-black text-red-600">
+                <p className="text-4xl font-black text-slate-800 my-4">
                   {baprPatchId}
                 </p>
-                <div className="space-y-0.5">
-                  <p className="text-sm text-slate-700">
-                    <span className="text-red-600 font-bold">{baprPct}%</span>{" "}
-                    test pass rate
+                <div className="space-y-1 mb-6">
+                  <p className="text-base font-medium text-slate-700">
+                    <span className="text-red-700 font-bold">{baprPct}%</span> test pass rate
                   </p>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-sm font-medium text-slate-500">
                     Trust score:{" "}
                     {rejectedTrustScore !== undefined ? (
-                      <AnimatedScore
-                        target={rejectedTrustScore}
-                        color="#dc2626"
-                      />
+                      <AnimatedScore target={rejectedTrustScore} color="#64748b" />
                     ) : (
                       "—"
                     )}
                   </p>
                 </div>
-                <div className="bg-red-100 border border-red-200 rounded-lg p-2 mt-2">
-                  <div className="flex items-center gap-1.5 justify-center">
-                    <XCircle className="w-3.5 h-3.5 text-red-500" />
-                    <p className="text-xs text-red-700 font-semibold">
-                      Test-Gaming Patch
-                    </p>
-                  </div>
-                  <p className="text-xs text-red-500 mt-0.5 text-center">
-                    Memorises test inputs — breaks on real data
-                  </p>
+                <div className="inline-flex items-center gap-2 text-red-700 border-t border-red-200 pt-4 w-full justify-center font-semibold">
+                  <XCircle className="w-4 h-4" />
+                  Test-Gaming Patch Detected
                 </div>
               </div>
 
               {/* TrustPatch */}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center space-y-2">
-                <p className="text-xs font-bold text-blue-700 uppercase tracking-wider">
-                  TrustPatch Selected
+              <div className="bg-blue-50/30 border border-blue-200 rounded-lg p-6 text-center">
+                <p className="text-sm font-semibold text-blue-800 uppercase tracking-wider mb-2">
+                  TrustPatch Selection
                 </p>
-                <p className="text-4xl font-black text-blue-700">
+                <p className="text-4xl font-black text-blue-800 my-4">
                   {taprPatchId}
                 </p>
-                <div className="space-y-0.5">
-                  <p className="text-sm text-slate-700">
-                    Trust score:{" "}
-                    <AnimatedScore target={taprTrustScore} color="#2563eb" />
+                <div className="space-y-1 mb-6">
+                  <p className="text-base font-bold text-slate-800">
+                    Trust score: <AnimatedScore target={taprTrustScore} color="#1e40af" />
                   </p>
-                  <p className="text-xs text-slate-400">
-                    vs.{" "}
-                    {rejectedTrustScore !== undefined
-                      ? rejectedTrustScore.toFixed(3)
-                      : "—"}{" "}
-                    for {baprPatchId}
+                  <p className="text-sm font-medium text-slate-500">
+                    vs. {rejectedTrustScore !== undefined ? rejectedTrustScore.toFixed(3) : "—"} for {baprPatchId}
                   </p>
                 </div>
-                <div className="bg-blue-100 border border-blue-200 rounded-lg p-2 mt-2">
-                  <div className="flex items-center gap-1.5 justify-center">
-                    <CheckCircle className="w-3.5 h-3.5 text-blue-600" />
-                    <p className="text-xs text-blue-700 font-semibold">
-                      Genuine Algorithm Fix
-                    </p>
-                  </div>
-                  <p className="text-xs text-blue-500 mt-0.5 text-center">
-                    Works correctly for ALL inputs
-                  </p>
+                <div className="inline-flex items-center gap-2 text-blue-700 border-t border-blue-200 pt-4 w-full justify-center font-semibold">
+                  <CheckCircle className="w-4 h-4" />
+                  Genuine Algorithm Fix
                 </div>
               </div>
             </div>

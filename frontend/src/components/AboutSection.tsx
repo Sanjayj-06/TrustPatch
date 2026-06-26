@@ -5,8 +5,8 @@
  */
 
 import React from "react";
-const Linkedin = () => null;
-const Mail = () => null;
+const Linkedin = (props: any) => null;
+const Mail = (props: any) => null;
 
 import authorImg from "../Images/author.png";
 import advisorImg from "../Images/advisor.jpg";
@@ -24,7 +24,7 @@ export default function AboutSection() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
           >
-            Click here to Know more about Trust Patch
+            View Slides
           </a>
         </div>
       </div>
