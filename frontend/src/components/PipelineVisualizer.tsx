@@ -145,7 +145,7 @@ export default function PipelineVisualizer({
             Test-Only
           </span>
         </div>
-        <div className="flex items-center gap-2 overflow-x-auto pb-2">
+        <div className="flex items-center gap-2 overflow-x-auto pt-3 pb-3 px-2 -mx-2">
           {BAPR_STEPS.map((step, i) => (
             <React.Fragment key={i}>
               <PipelineStep
@@ -181,7 +181,7 @@ export default function PipelineVisualizer({
             10-Dimensional
           </span>
         </div>
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2">
+        <div className="flex items-center gap-1.5 overflow-x-auto pt-3 pb-3 px-2 -mx-2">
           {TAPR_STEPS.map((step, i) => (
             <React.Fragment key={i}>
               <PipelineStep

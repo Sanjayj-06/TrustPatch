@@ -179,7 +179,7 @@ export default function App() {
         setPipelineSteps((prev) =>
           prev.map((s) => ({ ...s, status: "done" as StepStatus })),
         );
-        setCurrentPipelineStep(9);
+        setCurrentPipelineStep(10);
 
         setState((prev) => ({
           ...prev,
@@ -365,8 +365,14 @@ export default function App() {
         </div>
 
         {/* Architecture Section */}
-        <ArchitectureSection />
-
+        <div
+          id="architecture"
+          ref={(el) => {
+            sectionRefs.current["architecture"] = el;
+          }}
+        >
+          <ArchitectureSection />
+        </div>
         {/* Transition to Interactive Tool */}
         <div className="text-center py-8">
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">

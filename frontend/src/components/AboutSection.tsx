@@ -19,7 +19,7 @@ export default function AboutSection() {
         <div className="flex-1 flex items-center justify-between">
           <h2 className="text-lg font-bold text-slate-900">About TrustPatch</h2>
           <a
-            href="/src/Images/SERI 2026 SANJAY J.pdf"
+            href="https://drive.google.com/file/d/1OUyugu7qN0ZWXvHSA8_9de4tMU7jLHnK/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
