@@ -566,10 +566,21 @@ export default function App() {
       </main>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-400">
+      <footer className="border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-400 flex flex-col items-center gap-2">
         <p>
           TrustPatch &mdash; Trust-Aware APR Framework &mdash; Research
           Prototype
+        </p>
+        <p>
+          Developed by{" "}
+          <a
+            href="https://www.linkedin.com/in/sanjay-jayakumar/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:text-blue-600 hover:underline transition-colors font-medium"
+          >
+            Sanjay Jayakumar
+          </a>
         </p>
       </footer>
     </div>
