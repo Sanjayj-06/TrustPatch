@@ -12,8 +12,8 @@ import axios from 'axios';
 import type { UploadResponse, EvaluationResponse } from '../types';
 
 // Base URL for the FastAPI backend
-// Vite proxy forwards these to http://localhost:8000 in development
-const BASE_URL = 'http://localhost:8000';
+// Uses environment variable in production, falls back to localhost for local development
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: BASE_URL,

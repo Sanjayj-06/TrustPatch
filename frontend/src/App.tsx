@@ -143,6 +143,9 @@ export default function App() {
         TRUSTPATCH_STEPS.map((s) => ({ ...s, status: "pending" })),
       );
       setCurrentPipelineStep(0);
+      
+      // Auto-scroll down to the pipeline view
+      setTimeout(() => scrollTo("pipeline"), 100);
 
       try {
         await animateStep("upload", 0);
