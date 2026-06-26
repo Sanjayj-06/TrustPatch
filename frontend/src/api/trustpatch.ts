@@ -12,8 +12,8 @@ import axios from 'axios';
 import type { UploadResponse, EvaluationResponse } from '../types';
 
 // Base URL for the FastAPI backend
-// Uses environment variable in production, falls back to localhost for local development
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+// Automatically falls back to the live Render backend if VITE_API_URL is not set in Vercel
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://trustpatch-1.onrender.com';
 
 const api = axios.create({
   baseURL: BASE_URL,
