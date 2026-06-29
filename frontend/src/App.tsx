@@ -320,41 +320,33 @@ export default function App() {
       {/* ── HERO BANNER ── */}
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-5 pt-8 pb-6 flex flex-col items-center text-center">
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 mb-2">
-            {/* Left Logos */}
-            <div className="flex items-center justify-center md:justify-end gap-6 md:border-r border-slate-200 md:pr-12 flex-1 w-full md:w-auto">
-              <img
-                src={psgLogo}
-                alt="PSG Tech"
-                className="h-20 sm:h-24 w-auto object-contain"
-              />
-              <img
-                src={yrsLogo}
-                alt="75 Years"
-                className="h-20 sm:h-24 w-auto object-contain"
-              />
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-2 w-full">
+            
+            {/* Mobile: All 4 Logos in one row */}
+            <div className="flex md:hidden items-center justify-center gap-3 w-full px-2">
+              <img src={psgLogo} alt="PSG Tech" className="h-12 sm:h-14 w-auto object-contain" />
+              <img src={yrsLogo} alt="75 Years" className="h-12 sm:h-14 w-auto object-contain" />
+              <img src={aiConsortiumLogo} alt="AI Consortium" className="h-14 sm:h-16 w-auto object-contain rounded-md" />
+              <img src={tplogo} alt="Trust Patch" className="h-14 sm:h-16 w-auto object-contain" />
+            </div>
+
+            {/* Desktop: Left Logos */}
+            <div className="hidden md:flex items-center justify-end gap-6 border-r border-slate-200 pr-12 flex-1">
+              <img src={psgLogo} alt="PSG Tech" className="h-24 w-auto object-contain" />
+              <img src={yrsLogo} alt="75 Years" className="h-24 w-auto object-contain" />
             </div>
 
             {/* Title */}
-            <div className="flex-shrink-0 text-center">
+            <div className="flex-shrink-0 text-center mt-2 md:mt-0">
               <h1 className="text-5xl md:text-7xl font-black text-slate-900 tracking-tight uppercase">
                 TRUST <span className="text-blue-600">PATCH</span>
               </h1>
             </div>
 
-            {/* Right Logos */}
-            <div className="flex items-center justify-center md:justify-start gap-6 md:border-l border-slate-200 md:pl-12 flex-1 w-full md:w-auto">
-              {/* Scaled up the AI consortium logo because the image itself has empty padding */}
-              <img
-                src={aiConsortiumLogo}
-                alt="AI Consortium"
-                className="h-28 sm:h-32 w-auto object-contain rounded-lg"
-              />
-              <img
-                src={tplogo}
-                alt="Trust Patch"
-                className="h-28 sm:h-32 w-auto object-contain"
-              />
+            {/* Desktop: Right Logos */}
+            <div className="hidden md:flex items-center justify-start gap-6 border-l border-slate-200 pl-12 flex-1">
+              <img src={aiConsortiumLogo} alt="AI Consortium" className="h-32 w-auto object-contain rounded-lg" />
+              <img src={tplogo} alt="Trust Patch" className="h-32 w-auto object-contain" />
             </div>
           </div>
           <div className="mt-2 space-y-3 px-4">
@@ -590,10 +582,10 @@ export default function App() {
 
       {/* ── FOOTER ── */}
       <footer className="border-t border-slate-200 bg-white py-6 px-5 relative">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 md:gap-4">
           
           {/* Left: Visitors */}
-          <div className="flex-1 flex justify-center md:justify-start w-full">
+          <div className="w-full md:w-1/3 flex justify-center md:justify-start">
             {visitorCount !== null && (
               <div className="text-slate-500 text-xs font-medium flex items-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400">
@@ -608,15 +600,15 @@ export default function App() {
           </div>
 
           {/* Center: Info */}
-          <div className="flex-none text-center text-xs text-slate-400">
+          <div className="w-full md:w-1/3 text-center text-xs text-slate-400">
             <p>TrustPatch &mdash; Trust-Aware APR Framework &mdash; Research Prototype</p>
-            <p className="mt-1">
+            <p className="mt-2">
               Developed by{" "}
               <a
                 href="https://www.linkedin.com/in/sanjay-jayakumar/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-500 hover:text-blue-600 hover:underline transition-colors font-medium"
+                className="text-blue-500 hover:text-blue-600 hover:underline transition-colors font-medium whitespace-nowrap"
               >
                 Sanjay Jayakumar
               </a>
@@ -624,7 +616,7 @@ export default function App() {
           </div>
 
           {/* Right Spacer */}
-          <div className="flex-1 hidden md:block"></div>
+          <div className="hidden md:block md:w-1/3"></div>
         </div>
       </footer>
 

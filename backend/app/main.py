@@ -68,7 +68,8 @@ app.include_router(history.router)     # GET  /history
 # ---------------------------------------------------------------------------
 # Visitor Counter Endpoint
 # ---------------------------------------------------------------------------
-@app.get("/visitors", tags=["visitors"])
+@app.get("/api/site-stats", tags=["visitors"])
+@app.get("/visitors", tags=["visitors"]) # Keep legacy for compatibility
 async def get_visitors():
     """
     Returns the global visitor count using a free external API (counterapi.dev)

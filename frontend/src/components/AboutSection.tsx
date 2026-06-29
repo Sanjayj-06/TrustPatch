@@ -97,11 +97,11 @@ export default function AboutSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Author */}
-          <div className="flex items-center gap-5 bg-slate-50 border border-slate-200 p-5 rounded-xl">
+          <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-5 bg-slate-50 border border-slate-200 p-5 rounded-xl">
             <img
               src={authorImg}
               alt="Author"
-              className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-sm"
+              className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-white shadow-sm flex-shrink-0"
               onError={(e) => {
                 (e.target as HTMLImageElement).src =
                   "https://via.placeholder.com/150?text=Author";
@@ -120,7 +120,7 @@ export default function AboutSection() {
               <p className="text-sm text-slate-500 font-medium mt-0.5">
                 PSG College of Technology , Coimbatore
               </p>
-              <div className="flex gap-2 mt-3">
+              <div className="flex justify-center md:justify-start gap-2 mt-4">
                 <a
                   href="https://www.linkedin.com/in/sanjayj06/"
                   target="_blank"
@@ -140,11 +140,11 @@ export default function AboutSection() {
           </div>
 
           {/* Advisor */}
-          <div className="flex items-center gap-5 bg-slate-50 border border-slate-200 p-5 rounded-xl">
+          <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-5 bg-slate-50 border border-slate-200 p-5 rounded-xl">
             <img
               src={advisorImg}
               alt="Advisor"
-              className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-sm"
+              className="w-28 h-28 md:w-32 md:h-32 rounded-full object-cover border-4 border-white shadow-sm flex-shrink-0"
               onError={(e) => {
                 (e.target as HTMLImageElement).src =
                   "https://via.placeholder.com/150?text=Advisor";
@@ -166,7 +166,7 @@ export default function AboutSection() {
               <p className="text-sm text-slate-500 font-medium mt-0.5">
                 PSG College of Technology , Coimbatore
               </p>
-              <div className="flex gap-2 mt-3">
+              <div className="flex justify-center md:justify-start gap-2 mt-4">
                 <a
                   href="https://www.linkedin.com/in/g-r-karpagam-68ab8353/"
                   target="_blank"

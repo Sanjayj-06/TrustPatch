@@ -109,6 +109,8 @@ export default function PipelineVisualizer({
     BAPR_STEPS.length,
   );
   const containerRef = React.useRef<HTMLDivElement>(null);
+  const baprScrollRef = React.useRef<HTMLDivElement>(null);
+  const taprScrollRef = React.useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
@@ -122,6 +124,30 @@ export default function PipelineVisualizer({
     },
     { scope: containerRef },
   );
+
+  React.useEffect(() => {
+    if (baprScrollRef.current && isRunning) {
+      // Each step is represented by a step component and an arrow component (except the last).
+      // The step component is at index `baprStep * 2`
+      const children = baprScrollRef.current.children;
+      const targetIndex = Math.min(baprStep * 2, children.length - 1);
+      const activeEl = children[targetIndex] as HTMLElement;
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [baprStep, isRunning]);
+
+  React.useEffect(() => {
+    if (taprScrollRef.current && isRunning) {
+      const children = taprScrollRef.current.children;
+      const targetIndex = Math.min(currentStep * 2, children.length - 1);
+      const activeEl = children[targetIndex] as HTMLElement;
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [currentStep, isRunning]);
 
   return (
     <div ref={containerRef} className="space-y-5">
@@ -145,7 +171,7 @@ export default function PipelineVisualizer({
             Test-Only
           </span>
         </div>
-        <div className="flex items-center gap-2 overflow-x-auto pt-3 pb-3 px-2 -mx-2">
+        <div ref={baprScrollRef} className="flex items-center gap-2 overflow-x-auto pt-3 pb-3 px-2 -mx-2 hide-scrollbar no-scrollbar">
           {BAPR_STEPS.map((step, i) => (
             <React.Fragment key={i}>
               <PipelineStep
@@ -181,7 +207,7 @@ export default function PipelineVisualizer({
             10-Dimensional
           </span>
         </div>
-        <div className="flex items-center gap-1.5 overflow-x-auto pt-3 pb-3 px-2 -mx-2">
+        <div ref={taprScrollRef} className="flex items-center gap-1.5 overflow-x-auto pt-3 pb-3 px-2 -mx-2 hide-scrollbar no-scrollbar">
           {TAPR_STEPS.map((step, i) => (
             <React.Fragment key={i}>
               <PipelineStep

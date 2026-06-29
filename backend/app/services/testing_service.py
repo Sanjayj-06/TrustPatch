@@ -143,7 +143,7 @@ def _parse_pytest_output(output: str) -> Tuple[int, int]:
 
 def run_tests_for_all_patches(patches: list, test_code: str) -> Dict[str, Dict]:
     """
-    Run tests for all patches and return a mapping of patch_id → test results.
+    Run tests for all patches concurrently and return a mapping of patch_id → test results.
 
     Args:
         patches  : List of patch dicts from patch_generator.generate_patches()
@@ -152,8 +152,21 @@ def run_tests_for_all_patches(patches: list, test_code: str) -> Dict[str, Dict]:
     Returns:
         Dict mapping patch_id → test result dict
     """
+    import concurrent.futures
+
     results = {}
-    for patch in patches:
+    
+    # Define a helper to run test for a single patch
+    def _run_single(patch):
         patch_id = patch["patch_id"]
-        results[patch_id] = run_tests(patch["patch_code"], test_code)
+        result = run_tests(patch["patch_code"], test_code)
+        return patch_id, result
+
+    # Run tests concurrently to drastically reduce execution time on deployment
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        future_to_patch = {executor.submit(_run_single, p): p for p in patches}
+        for future in concurrent.futures.as_completed(future_to_patch):
+            patch_id, res = future.result()
+            results[patch_id] = res
+
     return results
