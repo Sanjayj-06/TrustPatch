@@ -69,20 +69,25 @@ app.include_router(history.router)     # GET  /history
 # Visitor Counter Endpoint
 # ---------------------------------------------------------------------------
 @app.get("/visitors", tags=["visitors"])
-async def get_visitors(db: Session = Depends(get_db)):
+async def get_visitors():
     """
-    Returns the global visitor count. Increments by 1 on each call.
-    Starts at 21 on the first call.
+    Returns the global visitor count using a free external API (counterapi.dev)
+    so the count persists even when the Render container restarts.
+    Adds 50 to compensate for the lost historical counts.
     """
-    vc = db.query(VisitorCount).first()
-    if not vc:
-        vc = VisitorCount(count=21)
-        db.add(vc)
-    else:
-        vc.count += 1
-    db.commit()
-    db.refresh(vc)
-    return {"visitors": vc.count}
+    import httpx
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                "https://api.counterapi.dev/v1/trustpatch_app_prod/visitors/up",
+                timeout=5.0
+            )
+            data = response.json()
+            # Add 50 to recover the previous visitors that were lost during the reset
+            return {"visitors": data.get("count", 0) + 50}
+    except Exception as e:
+        # Fallback in case the external API is down
+        return {"visitors": 51}
 
 # ---------------------------------------------------------------------------
 # Health Check Endpoint
