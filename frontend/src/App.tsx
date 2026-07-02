@@ -605,7 +605,7 @@ export default function App() {
             <p className="mt-2">
               Developed by{" "}
               <a
-                href="https://www.linkedin.com/in/sanjay-jayakumar/"
+                href="https://www.linkedin.com/in/sanjayj06/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:text-blue-600 hover:underline transition-colors font-medium whitespace-nowrap"
